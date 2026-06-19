@@ -1,10 +1,10 @@
-![Version](https://img.shields.io/badge/Version-1.0-blue)
+![Version](https://img.shields.io/badge/Version-1.1-blue)
 ![Hardware](https://img.shields.io/badge/Hardware-Cardputer_ADV-orange)
 ![Platform](https://img.shields.io/badge/Platform-M5Stack-red)
 ![License](https://img.shields.io/badge/License-Proprietary-gray)
 [![Boosty](https://img.shields.io/badge/Support-Boosty-orange)](https://boosty.to/zeloksa)
 
-# 📚 Wikipedia Offline ADV (V1.0)
+# 📚 Wikipedia Offline ADV (V1.1)
 
 **Wikipedia Offline ADV** is a hyper-optimized, standalone Wikipedia search engine and Pseudo-AI assistant built specifically for the **M5Stack Cardputer ADV**. It allows you to carry exactly **6,400,233 articles** in your pocket, fully offline, wrapping complex data retrieval in an immersive, retro-futuristic "ELIZA OS" terminal interface.
 
@@ -15,11 +15,19 @@
 
 ---
 
+## ✨ What's New in V1.1?
+
+* **Cinematic CRT Boot Sequence:** A highly realistic startup animation simulating an old CRT monitor warming up.
+* **Dynamic Theme Engine:** Features a real-time RGB color wheel (120x120 pixels rendered smoothly in PSRAM) allowing you to completely customize the OS aesthetic. Change text colors, background colors, CRT scanline colors, text outline colors, and adjust alpha/opacity levels on the fly!
+
+---
+
 ## ⚡ Technical Highlights
 
 * **O(log N) Binary Pointer Search:** Bypasses standard FAT32 4GB file limits by distributing data across multiple chunks (`dataX.bin`) and packing file IDs and local offsets into 64-bit pointers. Searches through the entire database of **6,400,233 articles** take mere milliseconds.
 * **Pseudo-AI Extractive QA (Question Answering):** More than just a search bar. Ask natural questions (e.g., *"Who is the president of the USA?"* or *"What are the symptoms of a cold?"*). The onboard NLP engine cleans the intent, loads the 32KB article into RAM, and scores sentences using a custom **TF-IDF Lite algorithm** to extract and print the exact answer before displaying the full text.
 * **Fuzzy Levenshtein Radar:** Typos happen on a tiny keyboard. If an exact match isn't found, the engine scans a 250-article sliding window on the SD card, calculates Levenshtein distance relevancy, and offers a paginated list of the 96 closest matches.
+* **Zero-Flicker M5GFX Rendering:** Complex UI elements like the CRT scanlines, text outlines, and the new color wheel are drawn on off-screen canvases (`M5Canvas`) and pushed to the display seamlessly.
 
 ---
 
@@ -27,11 +35,11 @@
 
 1. Open **M5Burner**.
 2. Search for `Wikipedia Offline ADV` or `Zeloksa`.
-3. Select version **V1.0** and burn it to your M5Stack Cardputer.
+3. Select the latest version and burn it to your M5Stack Cardputer.
 4. **CRITICAL:** Download the archive containing the 6.4 million article database from Google Drive:
 
 👉 **[Download Database (6.45 GB)](https://drive.google.com/file/d/1vk8ZYRW6EJnWbYxpt7XWHItsnzcVqdjU/view?usp=drive_link)**
-   *(Note: Google Drive will say it cannot scan the file for viruses because it is too large. This is normal for heavy files. Click "Download anyway".)*
+  *(Note: Google Drive will say it cannot scan the file for viruses because it is too large. This is normal for heavy files. Click "Download anyway".)*
 5. Unpack the downloaded `.zip` archive. Ensure you have at least **18.3 GB** of free space.
 6. Move the files `index_ptr.bin`, `index_data.bin`, and all `dataX.bin` files **directly into the root directory** of your FAT32-formatted MicroSD card. 
 
@@ -44,6 +52,7 @@
 
 ## 🕹 Controls & Usage
 
+### Standard OS Navigation
 * **[ A-Z, 0-9 ]**: Type your query naturally.
 * **[ ENTER ]**: Execute search / Submit selection.
 * **[ ENTER ] (While ELIZA is typing)**: **Skip Animation** and display the full text instantly.
@@ -52,6 +61,14 @@
 * **[ , ] / [ . ] (Left / Right Arrows)**: Flip through suggestion pages when multiple results are found.
 * **[ ; ] / [ / ] (Up / Down Arrows)**: Scroll through long articles.
 * **[ - / = ]**: Adjust system volume (typing sound effects).
+
+### 🎨 Theme Customization Menu
+* **[ TAB ]**: Open or Close the Theme Settings menu. (Settings auto-save to SD when closed).
+* **[ ; ] / [ / ] (Up / Down)**: Navigate through the 7 menu items.
+* **[ ENTER ]**: Toggle "Edit Mode" for the selected setting.
+* **[ Arrow Keys ] (In Edit Mode)**: 
+  * Move the cursor around the color wheel to pick a color.
+  * Adjust opacity sliders left/right.
 
 ---
 
@@ -78,6 +95,16 @@ If you make a typo (e.g., *"Einstien"* instead of *"Einstein"*), ELIZA will offe
 2. Type the number corresponding to your desired article (e.g., `14`) and press `[ENTER]`.
 3. If none of the suggestions match, simply type `no` or `cancel` to return to the main menu.
 
+### 🖌️ Theme Engine Settings
+When you press `[TAB]`, a slide-down menu appears. You can configure:
+1. **Text Color:** The main typing and output color.
+2. **Bg Color:** The background void color.
+3. **CRT Color:** The color of the horizontal scanlines.
+4. **CRT Opac.:** Slider to control how visible the CRT lines are (Alpha blending).
+5. **Outline Col:** Color of the text outline (creates a bold/bloom effect).
+6. **Outl. Opac:** Slider to control the text outline visibility.
+7. **Reset Theme:** Press `[ENTER]` here to instantly revert to the classic ELIZA Green-on-Black CRT default.
+
 ---
 
 ## 🛑 Error Codes & Troubleshooting
@@ -97,7 +124,7 @@ If you find a bug or have a suggestion for the next version:
 ---
 
 ## ☕ Support the Project
-Building custom NLP parsers and indexing engines for microcontrollers takes hundreds of hours of trial and error. If this tool has blown your mind or helped you, consider supporting further development!
+Building custom NLP parsers, graphics engines, and offline databases for microcontrollers takes hundreds of hours of trial and error. If this tool has blown your mind or helped you, consider supporting further development!
 * **[Support Zeloksa on Boosty](https://boosty.to/zeloksa)**
 
 ---
