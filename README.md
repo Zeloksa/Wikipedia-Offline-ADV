@@ -1,10 +1,10 @@
-![Version](https://img.shields.io/badge/Version-1.1-blue)
+![Version](https://img.shields.io/badge/Version-1.2-blue)
 ![Hardware](https://img.shields.io/badge/Hardware-Cardputer_ADV-orange)
 ![Platform](https://img.shields.io/badge/Platform-M5Stack-red)
 ![License](https://img.shields.io/badge/License-Proprietary-gray)
 [![Boosty](https://img.shields.io/badge/Support-Boosty-orange)](https://boosty.to/zeloksa)
 
-# 📚 Wikipedia Offline ADV (V1.1)
+# 📚 Wikipedia Offline ADV (V1.2)
 
 **Wikipedia Offline ADV** is a hyper-optimized, standalone Wikipedia search engine and Pseudo-AI assistant built specifically for the **M5Stack Cardputer ADV**. It allows you to carry exactly **6,400,233 articles** in your pocket, fully offline, wrapping complex data retrieval in an immersive, retro-futuristic "ELIZA OS" terminal interface.
 
@@ -15,25 +15,27 @@
 
 ---
 
-## ✨ What's New in V1.1?
+## ✨ What's New in V1.2?
 
-* **Cinematic CRT Boot Sequence:** A highly realistic startup animation simulating an old CRT monitor warming up.
-* **Dynamic Theme Engine:** Features a real-time RGB color wheel (120x120 pixels rendered smoothly in PSRAM) allowing you to completely customize the OS aesthetic. Change text colors, background colors, CRT scanline colors, text outline colors, and adjust alpha/opacity levels on the fly!
+* **Smooth Scrolling:** Added a buttery-smooth scrolling mechanic! Hold the **Up (`;`)** or **Down (`.`)** arrow keys to glide through the text. Single presses still act as a quick 3-line jump.
+* **Continuous Reading:** Huge articles no longer just cut off! If you hit the memory limit on a massive topic, simply type `more`, `next`, or `continue` to seamlessly load and read the next chunk of the article.
+* **OOM Crash Fixes:** Completely overhauled RAM allocation. Fixed a critical bug where searching for massive articles (like "Bratislava") would cause heap fragmentation and reboot the Cardputer.
+* *(From V1.1)* **Cinematic CRT Boot & Theme Engine:** Enjoy a highly realistic startup animation and press **[TAB]** to open a real-time RGB color wheel to customize your OS text, background, and CRT scanlines.
 
 ---
 
 ## ⚡ Technical Highlights
 
 * **O(log N) Binary Pointer Search:** Bypasses standard FAT32 4GB file limits by distributing data across multiple chunks (`dataX.bin`) and packing file IDs and local offsets into 64-bit pointers. Searches through the entire database of **6,400,233 articles** take mere milliseconds.
-* **Pseudo-AI Extractive QA (Question Answering):** More than just a search bar. Ask natural questions (e.g., *"Who is the president of the USA?"* or *"What are the symptoms of a cold?"*). The onboard NLP engine cleans the intent, loads the 32KB article into RAM, and scores sentences using a custom **TF-IDF Lite algorithm** to extract and print the exact answer before displaying the full text.
+* **Pseudo-AI Extractive QA (Question Answering):** More than just a search bar. Ask natural questions (e.g., *"Who is the president of the USA?"* or *"What are the symptoms of a cold?"*). The onboard NLP engine cleans the intent, loads the article into RAM, and scores sentences using a custom **TF-IDF Lite algorithm** to extract and print the exact answer before displaying the full text.
 * **Fuzzy Levenshtein Radar:** Typos happen on a tiny keyboard. If an exact match isn't found, the engine scans a 250-article sliding window on the SD card, calculates Levenshtein distance relevancy, and offers a paginated list of the 96 closest matches.
-* **Zero-Flicker M5GFX Rendering:** Complex UI elements like the CRT scanlines, text outlines, and the new color wheel are drawn on off-screen canvases (`M5Canvas`) and pushed to the display seamlessly.
+* **Zero-Flicker M5GFX Rendering:** Complex UI elements like the CRT scanlines, text outlines, and the color wheel are drawn on off-screen canvases (`M5Canvas`) and pushed to the display seamlessly.
 
 ---
 
 ## 🛠 Installation
 
-1. Open **M5Burner**.
+1. Open **M5Burner** or **M5Launcher**.
 2. Search for `Wikipedia Offline ADV` or `Zeloksa`.
 3. Select the latest version and burn it to your M5Stack Cardputer.
 4. **CRITICAL:** Download the archive containing the 6.4 million article database from Google Drive:
@@ -59,7 +61,8 @@
 * **[ DEL ]**: Delete the last character.
 * **[ ESC / \` ]**: Hardware Reset. Clears the screen and starts a new session.
 * **[ , ] / [ . ] (Left / Right Arrows)**: Flip through suggestion pages when multiple results are found.
-* **[ ; ] / [ / ] (Up / Down Arrows)**: Scroll through long articles.
+* **[ ; ] / [ / ] (Up / Down Arrows)**: Single press to jump 3 lines. **Hold** for buttery-smooth scrolling.
+* **Type `more` or `next`**: Load the next part of a very long article if it reaches the memory limit.
 * **[ - / = ]**: Adjust system volume (typing sound effects).
 
 ### 🎨 Theme Customization Menu
@@ -111,7 +114,7 @@ When you press `[TAB]`, a slide-down menu appears. You can configure:
 
 * **"CRITICAL ERROR: No SD card detected"**: Ensure your MicroSD card is clicked fully into the slot and is formatted to FAT32 (exFAT is not supported by default ESP32 libraries).
 * **"ERROR: Databanks missing or corrupted"**: You are missing `index_ptr.bin`, `index_data.bin`, or `dataX.bin`. The OS cannot index the raw data without these files. Check your file transfers.
-* **"[TRUNCATED: Memory limit reached]"**: The article exceeds the 32KB safe-RAM buffer limit. The OS protects itself from crashing by cutting off the very end of massive articles.
+* **"[TRUNCATED: Memory limit reached]"**: The article exceeds the safe-RAM buffer limit. The OS protects itself from crashing by pausing the text. **Simply type `more`, `next`, or `continue` to load the next section of the article!**
 
 ---
 
